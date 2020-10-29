@@ -107,7 +107,11 @@
             <img class="sticky" src="<?php echo $img; ?>" alt="Logo" style="height: 60px; width: 60px; margin-bottom: 20px;">
             <h1 style="display: inline;"><?php echo $title; ?></h1>
             <p style="margin-bottom: 0px;"><b>Client ID: </b> <?php echo $client_id; ?></p>
-            <p><b>Client Secret: </b> <?php echo $client_secret; ?></p>
+            <?php if (!empty($client_secret)) {
+                echo "<p><b>Client Secret: </b> $client_secret</p>";
+            }
+            ?>
+            <br>
 
             <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#accessTokenMenu">My Access Token</a></li>

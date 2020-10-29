@@ -7,10 +7,10 @@ function getMetadata($issuer) {
 
 function getCurlRefresh($clientId, $clientSecret = null, $scopes = null, $refreshToken, $tokenEndpoint) {
     $command =  "curl -X POST '${tokenEndpoint}' "
-        . (empty($clientSecret) ? "-u '${clientId}':'${clientSecret}' " : "")
+        . (!empty($clientSecret) ? "-u '${clientId}':'${clientSecret}' " : "")
         . "-d 'grant_type=refresh_token"
         . "&refresh_token=${refreshToken}"
-        . (!empty($clientSecret) ? "&client_id=${clientId}" : "")
+        . (empty($clientSecret) ? "&client_id=${clientId}" : "")
         . ($scopes ? "&scope=" . implode("%20", $scopes) . "' " : "' ")
         . "| python -m json.tool;";
 
@@ -28,10 +28,10 @@ function getCurlUserInfo($accessToken, $userInfoEndpoint) {
 
 function getCurlIntrospect($clientId, $clientSecret, $accessToken, $introspectionEndpoint) {
     $command = "curl ${introspectionEndpoint} "
-        . (empty($clientSecret) ? "-u '${clientId}':'${clientSecret}' " : "")
+        . (!empty($clientSecret) ? "-u '${clientId}':'${clientSecret}' " : "")
         . "-H 'Content-Type: application/x-www-form-urlencoded' "
         . "-d 'token=${accessToken}' "
-        . (!empty($clientSecret) ? "-d 'client_id=${clientId}' " : "")
+        . (empty($clientSecret) ? "-d 'client_id=${clientId}' " : "")
         . "| python -m json.tool;";
 
     return $command;
