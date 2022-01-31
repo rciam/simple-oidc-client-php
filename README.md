@@ -92,7 +92,9 @@ Let’s go quickly through the settings:
 * `client_id` required, is the id of the client we want to use when hitting the authorization endpoint
 * `client_secret` optional, a value the offers better security to the message flow
 * `pkceCodeChallengeMethod` optional, a string that defines the code challenge methond for PKCE. Choose between `plain` or `S256`.
-* `redirect_url` required, is the redirect URL where the client and the browser agree to send and receive correspondingly the code
+* `redirect_url` required, is the redirect URL where the client and the browser agree to send and receive correspondingly the code. Currently, there are available 2 pages for that purpose:
+  * `refreshtoken.php`: The users can request Refresh Tokens. Also, they can see all the issued active Refresh Tokens for this client.
+  * `auth.php`: The users can obtain their user information from the obtained Access (and Refresh) Token.
 * `scopesDefine` required, defines the scopes the client supports
 * `refresh_token_note` optional, info for the refresh token
 * `access_token_note` optional, info for the access token
