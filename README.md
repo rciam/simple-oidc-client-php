@@ -1,35 +1,36 @@
 # simple-oidc-client-php
+
 A simple OpenID Connect (OIDC) client in PHP that uses authorization code flow and/or [PKCE](https://tools.ietf.org/html/rfc7636)
 
 ## Simple OIDC Client - setup
 
 You can either clone repo from github or download the project from releases.
-(Instructions have been tested on Debian 8 and PHP 5).
+(Instructions have been tested on Debian 10 and PHP 7).
 
 ### Clone repo
 
-First we need to install apache and composer
+First you need to install apache and composer
 
-```
+```shell
 sudo apt-get update
-sudo apt-get install apache2
-sudo apt-get install curl php5-cli git
+sudo apt-get install apache2 curl php-cli git
 php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');"
 sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 ```
-More info about composer installation (steps 1-2): https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-debian-8
+
+Click [here](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos)
+for more info about composer installation
 
 Then clone the repo to this directory:
 
-```
+```shell
 cd /var/www/html
 git clone https://github.com/rciam/simple-oidc-client-php.git
 ```
 
-We are going to install the requirements with composer:
-NOTE: If you are using PHP 7, then remove `"paragonie/random_compat":"2.0.19",` from `composer.json`.
+Install the requirements with composer:
 
-```
+```shell
 cd simple-oidc-client-php
 composer install
 ```
@@ -38,14 +39,14 @@ composer install
 
 Install Apache
 
-```
+```shell
 sudo apt-get update
 sudo apt-get install apache2
 ```
 
 Download the file from releases and extract it in apache home directory
 
-```
+```shell
 cd /var/www/html
 wget https://github.com/rciam/simple-oidc-client-php/releases/download/vX.Y.Z/simple-oidc-client-php-X.Y.Z.tar.gz
 tar -zxvf simple-oidc-client-php-X.Y.Z.tar.gz
@@ -55,7 +56,7 @@ tar -zxvf simple-oidc-client-php-X.Y.Z.tar.gz
 
 Now that we have everything we need, we can configure our login settings in `config.php`.
 
-```
+```php
 <?php
 // index.php interface configuration
 $title = "Generate Tokens";
@@ -91,7 +92,9 @@ Let’s go quickly through the settings:
 * `client_id` required, is the id of the client we want to use when hitting the authorization endpoint
 * `client_secret` optional, a value the offers better security to the message flow
 * `pkceCodeChallengeMethod` optional, a string that defines the code challenge methond for PKCE. Choose between `plain` or `S256`.
-* `redirect_url` required, is the redirect URL where the client and the browser agree to send and receive correspondingly the code
+* `redirect_url` required, is the redirect URL where the client and the browser agree to send and receive correspondingly the code. Currently, there are available 2 pages for that purpose:
+  * `refreshtoken.php`: The users can request Refresh Tokens. Also, they can see all the issued active Refresh Tokens for this client.
+  * `auth.php`: The users can obtain their user information from the obtained Access (and Refresh) Token.
 * `scopesDefine` required, defines the scopes the client supports
 * `refresh_token_note` optional, info for the refresh token
 * `access_token_note` optional, info for the access token
