@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <?php
@@ -15,18 +15,18 @@
         @session_start();
     }
 
-    if (empty($client_secret)) {
-        $client_secret = null;
+    if (empty($clientSecret)) {
+        $clientSecret = null;
     }
 
     $oidc = new OpenIDConnectClient(
         $issuer,
-        $client_id,
-        $client_secret
+        $clientId,
+        $clientSecret
     );
     $scopes = array_keys($scopesDefine);
     $oidc->addScope($scopes);
-    $oidc->setRedirectURL($redirect_url);
+    $oidc->setRedirectURL($redirectUrl);
     $oidc->setResponseTypes(['code']);
     if (!empty($pkceCodeChallengeMethod)) {
         $oidc->setCodeChallengeMethod($pkceCodeChallengeMethod);
@@ -41,7 +41,7 @@
     $userInfo = $oidc->requestUserInfo();
     ?>
     <title><?= $title; ?></title>
-    <meta charset="utf-8" />
+    <meta content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css" />
 </head>
 
@@ -62,8 +62,8 @@
           <div class="jumbotron">
             <img class="sticky" src="<?= $img; ?>" alt="Logo" style="height: 60px; width: 60px; margin-bottom: 20px;">
             <h1 style="display: inline;"><?= $title; ?></h1>
-            <p style="margin-bottom: 0px;"><b>Client ID: </b> <?= $client_id; ?></p>
-            <p><b>User Info: </b> <?= var_export($userInfo, true); ?></p>
+            <p style="margin-bottom: 0px;"><strong>Client ID: </strong> <?= $clientId; ?></p>
+            <p><strong>User Info: </strong> <?= var_export($userInfo, true); ?></p>
             <p class="lead" style="margin-bottom: 0px;">Access Token: </p>
             <input id="access_token" size=70 type="text" readonly style="cursor: text;" value="<?= $accessToken; ?>" />
             <?php if (!empty($refreshToken)) : ?>

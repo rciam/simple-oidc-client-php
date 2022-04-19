@@ -1,43 +1,42 @@
 <?php
 
-function getMetadata($issuer) {
+function getMetadata($issuer)
+{
     $url = $issuer . "/.well-known/openid-configuration/";
-    return json_decode(http($url));;
+    return json_decode(http($url));
 }
 
-function getCurlRefresh($clientId, $clientSecret = null, $scopes = null, $refreshToken, $tokenEndpoint) {
-    $command =  "curl -X POST '${tokenEndpoint}' "
+function getCurlRefresh($refreshToken, $tokenEndpoint, $clientId, $clientSecret = null, $scopes = null)
+{
+    return "curl -X POST '${tokenEndpoint}' "
         . (!empty($clientSecret) ? "-u '${clientId}':'${clientSecret}' " : "")
         . "-d 'grant_type=refresh_token"
         . "&refresh_token=${refreshToken}"
         . (empty($clientSecret) ? "&client_id=${clientId}" : "")
         . ($scopes ? "&scope=" . implode("%20", $scopes) . "' " : "' ")
         . "| python -m json.tool;";
-
-    return $command;
 }
 
-function getCurlUserInfo($accessToken, $userInfoEndpoint) {
-    $command = "curl ${userInfoEndpoint} "
+function getCurlUserInfo($accessToken, $userInfoEndpoint)
+{
+    return "curl ${userInfoEndpoint} "
         . "-H 'Authorization: Bearer ${accessToken}' "
         . "-H 'Content-type: application/json' "
         . "| python -m json.tool;";
-
-    return $command;
 }
 
-function getCurlIntrospect($clientId, $clientSecret, $accessToken, $introspectionEndpoint) {
-    $command = "curl ${introspectionEndpoint} "
+function getCurlIntrospect($accessToken, $introspectionEndpoint, $clientId, $clientSecret)
+{
+    return "curl ${introspectionEndpoint} "
         . (!empty($clientSecret) ? "-u '${clientId}':'${clientSecret}' " : "")
         . "-H 'Content-Type: application/x-www-form-urlencoded' "
         . "-d 'token=${accessToken}' "
         . (empty($clientSecret) ? "-d 'client_id=${clientId}' " : "")
         . "| python -m json.tool;";
-
-    return $command;
 }
 
-function getActiveRefreshTokens($accessToken, $issuer) {
+function getActiveRefreshTokens($accessToken, $issuer)
+{
     $url = $issuer . "api/tokens/refresh";
     $headers = [
         "Authorization: Bearer " . $accessToken,
@@ -46,13 +45,14 @@ function getActiveRefreshTokens($accessToken, $issuer) {
     return json_decode(http($url, null, $headers));
 }
 
-function getRefreshTokenTable($client_id, $accessToken, $issuer) {
+function getRefreshTokenTable($clientId, $accessToken, $issuer)
+{
     $activeRefreshTokens = getActiveRefreshTokens($accessToken, $issuer);
     $index = 1;
     $table = "";
 
     foreach ($activeRefreshTokens as $refreshToken) {
-        if ($client_id == $refreshToken->clientId) {
+        if ($clientId == $refreshToken->clientId) {
             $table = $table
                 . "<tr>"
                 . "<th scope=\"row\">${index}</th>"
@@ -73,7 +73,7 @@ function getRefreshTokenTable($client_id, $accessToken, $issuer) {
                 . "    </form>"
                 . "</td>"
                 . "</tr>";
-            
+
             $index++;
         }
     }
@@ -81,28 +81,28 @@ function getRefreshTokenTable($client_id, $accessToken, $issuer) {
     return $table;
 }
 
-function http($url, $post_body = null, $headers = [])
+function http($url, $postBody = null, $headers = [])
 {
     // create a new cURL resource handle
     $ch = curl_init();
 
     // Determine whether this is a GET or POST
-    if ($post_body != null) {
+    if ($postBody != null) {
         // Alows to keep the POST method even after redirect
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postBody);
 
         // Default content type is form encoded
-        $content_type = 'application/x-www-form-urlencoded';
+        $contentType = 'application/x-www-form-urlencoded';
 
         // Determine if this is a JSON payload and add the appropriate content type
-        if (is_object(json_decode($post_body))) {
-            $content_type = 'application/json';
+        if (is_object(json_decode($postBody))) {
+            $contentType = 'application/json';
         }
 
         // Add POST-specific headers
-        $headers[] = "Content-Type: {$content_type}";
-        $headers[] = 'Content-Length: ' . strlen($post_body);
+        $headers[] = "Content-Type: {$contentType}";
+        $headers[] = 'Content-Length: ' . strlen($postBody);
     }
 
     // If we set some heaers include them
