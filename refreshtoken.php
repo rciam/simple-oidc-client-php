@@ -113,10 +113,12 @@
             ?>
             <br>
 
+            <?php if ($enable_active_tokens_table) : ?>
             <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#accessTokenMenu">My Access Token</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#refreshTokenMenu">My Refresh Tokens</a></li>
             </ul>
+            <?php endif; ?>
 
             <div class="tab-content">
                 <div id="accessTokenMenu" class="tab-pane active">
@@ -158,6 +160,7 @@
                     <?php } ?>
                     <p><?php echo $manage_token_note; ?><a target="_blank" class="navbar-brand" href="<?php echo $manageTokens; ?>"><?php echo $manageTokens; ?></a></p>
                 </div>
+                <?php if ($enable_active_tokens_table) : ?>
                 <div id="refreshTokenMenu" class="tab-pane fade">
                     <table class="table table-striped">
                         <caption>Active Refresh Tokens</caption>
@@ -173,6 +176,7 @@
                         </tbody>
                     </table>
                 </div>
+                <?php endif; ?>
             </div>
 
         </div>
