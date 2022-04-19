@@ -165,7 +165,6 @@
                 <?php if ($enableActiveTokensTable) : ?>
                 <div id="refreshTokenMenu" class="tab-pane fade">
                     <table class="table table-striped">
-                        <caption>Active Refresh Tokens</caption>
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
