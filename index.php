@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <?php require 'config.php'; ?>
     <title><?php echo $title; ?></title>
-    <meta charset="utf-8" />
+    <meta content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
@@ -20,12 +20,12 @@
           <div class="jumbotron">
             <img class="sticky" src="<?php echo $img; ?>" alt="Logo" style="height: 60px; width: 60px;margin-bottom: 20px;">
             <h1 style="display: inline;"><?php echo $title; ?></h1>
-            <p class="lead"><?php echo $scope_info; ?></p>
+            <p class="lead"><?php echo $scopeInfo; ?></p>
             <ul class="list-group list-group-flush">
                 <?php
-                    foreach($scopesDefine as $scope => $scopeDetail){
-                        echo '<li class="list-group-item">'. $scopeDetail . '</li>';
-                    }
+                foreach ($scopesDefine as $scope => $scopeDetail) {
+                    echo '<li class="list-group-item">' . $scopeDetail . '</li>';
+                }
                 ?>
             </ul>
             <br>

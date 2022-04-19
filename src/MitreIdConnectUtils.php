@@ -1,43 +1,42 @@
 <?php
 
-function getMetadata($issuer) {
+function getMetadata($issuer)
+{
     $url = $issuer . "/.well-known/openid-configuration/";
-    return json_decode(http($url));;
+    return json_decode(http($url));
 }
 
-function getCurlRefresh($clientId, $clientSecret = null, $scopes = null, $refreshToken, $tokenEndpoint) {
-    $command =  "curl -X POST '${tokenEndpoint}' "
+function getCurlRefresh($refreshToken, $tokenEndpoint, $clientId, $clientSecret = null, $scopes = null)
+{
+    return "curl -X POST '${tokenEndpoint}' "
         . (!empty($clientSecret) ? "-u '${clientId}':'${clientSecret}' " : "")
         . "-d 'grant_type=refresh_token"
         . "&refresh_token=${refreshToken}"
         . (empty($clientSecret) ? "&client_id=${clientId}" : "")
         . ($scopes ? "&scope=" . implode("%20", $scopes) . "' " : "' ")
         . "| python -m json.tool;";
-
-    return $command;
 }
 
-function getCurlUserInfo($accessToken, $userInfoEndpoint) {
-    $command = "curl ${userInfoEndpoint} "
+function getCurlUserInfo($accessToken, $userInfoEndpoint)
+{
+    return "curl ${userInfoEndpoint} "
         . "-H 'Authorization: Bearer ${accessToken}' "
         . "-H 'Content-type: application/json' "
         . "| python -m json.tool;";
-
-    return $command;
 }
 
-function getCurlIntrospect($clientId, $clientSecret, $accessToken, $introspectionEndpoint) {
-    $command = "curl ${introspectionEndpoint} "
+function getCurlIntrospect($accessToken, $introspectionEndpoint, $clientId, $clientSecret)
+{
+    return "curl ${introspectionEndpoint} "
         . (!empty($clientSecret) ? "-u '${clientId}':'${clientSecret}' " : "")
         . "-H 'Content-Type: application/x-www-form-urlencoded' "
         . "-d 'token=${accessToken}' "
         . (empty($clientSecret) ? "-d 'client_id=${clientId}' " : "")
         . "| python -m json.tool;";
-
-    return $command;
 }
 
-function getActiveRefreshTokens($accessToken, $issuer) {
+function getActiveRefreshTokens($accessToken, $issuer)
+{
     $url = $issuer . "api/tokens/refresh";
     $headers = [
         "Authorization: Bearer " . $accessToken,
@@ -46,7 +45,8 @@ function getActiveRefreshTokens($accessToken, $issuer) {
     return json_decode(http($url, null, $headers));
 }
 
-function getRefreshTokenTable($client_id, $accessToken, $issuer) {
+function getRefreshTokenTable($client_id, $accessToken, $issuer)
+{
     $activeRefreshTokens = getActiveRefreshTokens($accessToken, $issuer);
     $index = 1;
     $table = "";
@@ -73,7 +73,7 @@ function getRefreshTokenTable($client_id, $accessToken, $issuer) {
                 . "    </form>"
                 . "</td>"
                 . "</tr>";
-            
+
             $index++;
         }
     }
