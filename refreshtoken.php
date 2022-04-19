@@ -132,11 +132,13 @@
                         <input id="curlUserInfo" size=70 type="text" readonly style="cursor: text;" value="<?php echo getCurlUserInfo($accessToken, $userInfoEndpoint); ?>" />
                         <button id="copyCurlUserInfo" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
                     </div>
+                    <?php if ($allow_introspection) : ?>
                     <div>
                         <p style="margin-bottom: 0px;">To introspect the token use the following curl command: </p>
                         <input id="curlIntrospection" size=70 type="text" readonly style="cursor: text;" value="<?php echo getCurlIntrospect($client_id, $client_secret, $accessToken, $introspectionEndpoint); ?>" />
                         <button id="copyCurlIntrospection" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
                     </div>
+                    <?php endif; ?>
                     <p><?php echo $access_token_note; ?></p>
                     <?php if (!empty($refreshToken)) { ?>
                         <div id="refreshTokenBlock">
