@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <?php
@@ -88,7 +88,7 @@
 
     ?>
     <title><?php echo $title; ?></title>
-    <meta charset="utf-8" />
+    <meta content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css" />
 </head>
 
@@ -106,7 +106,7 @@
         <div class="jumbotron">
             <img class="sticky" src="<?php echo $img; ?>" alt="Logo" style="height: 60px; width: 60px; margin-bottom: 20px;">
             <h1 style="display: inline;"><?php echo $title; ?></h1>
-            <p style="margin-bottom: 0px;"><b>Client ID: </b> <?php echo $client_id; ?></p>
+            <p style="margin-bottom: 0px;"><strong>Client ID: </strong> <?php echo $client_id; ?></p>
             <?php if (!empty($client_secret)) {
                 echo "<p><b>Client Secret: </b> $client_secret</p>";
             }
@@ -123,30 +123,30 @@
                     <div>
                         <p class="lead" style="margin-bottom: 0px;">Access Token: </p>
                         <input id="accessToken" size=70 type="text" readonly style="cursor: text;" value="<?php echo $accessToken; ?>" />
-                        <button id="copy-mAccessT" style="cursor: pointer" class="btn btn-copy btn-primary"><i class="icon-file"></i> Copy</button>
+                        <button id="copy-mAccessT" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
                     </div>
                     <div>
                         <p style="margin-bottom: 0px;">To get the user info use the following curl command: </p>
                         <input id="curlUserInfo" size=70 type="text" readonly style="cursor: text;" value="<?php echo getCurlUserInfo($accessToken, $userInfoEndpoint); ?>" />
-                        <button id="copyCurlUserInfo" style="cursor: pointer" class="btn btn-copy btn-primary"><i class="icon-file"></i> Copy</button>
+                        <button id="copyCurlUserInfo" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
                     </div>
                     <div>
                         <p style="margin-bottom: 0px;">To introspect the token use the following curl command: </p>
                         <input id="curlIntrospection" size=70 type="text" readonly style="cursor: text;" value="<?php echo getCurlIntrospect($client_id, $client_secret, $accessToken, $introspectionEndpoint); ?>" />
-                        <button id="copyCurlIntrospection" style="cursor: pointer" class="btn btn-copy btn-primary"><i class="icon-file"></i> Copy</button>
+                        <button id="copyCurlIntrospection" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
                     </div>
                     <p><?php echo $access_token_note; ?></p>
                     <?php if (!empty($refreshToken)) { ?>
                         <div id="refreshTokenBlock">
                             <p class="lead" style="margin-bottom: 0px;">Refresh Token: </p>
                             <input id="refreshToken" size=70 type="text" readonly style="cursor: text;" value="<?php echo $refreshToken; ?>" />
-                            <button id="copyRefreshToken" style="cursor: pointer" class="btn btn-copy btn-primary"><i class="icon-file"></i> Copy</button>
+                            <button id="copyRefreshToken" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
                             <p><?php echo $refresh_token_note; ?></p>
                         </div>
                         <div>
                             <p style="margin-bottom: 0px;">To generate access tokens from this refresh token use the following curl command: </p>
                             <input id="curlRefresh" size=70 type="text" readonly style="cursor: text;" value="<?php echo getCurlRefresh($client_id, $client_secret, $scopes, $refreshToken, $tokenEndpoint); ?>" />
-                            <button id="copyCurlRefresh" style="cursor: pointer" class="btn btn-copy btn-primary"><i class="icon-file"></i> Copy</button>
+                            <button id="copyCurlRefresh" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
                             <p><?php echo $access_token_note; ?></p>
                         </div>
                         <br>
@@ -160,6 +160,7 @@
                 </div>
                 <div id="refreshTokenMenu" class="tab-pane fade">
                     <table class="table table-striped">
+                        <caption>Active Refresh Tokens</caption>
                         <thead>
                             <tr>
                                 <th scope="col">#</th>

@@ -1,4 +1,5 @@
 <?php
+
 // index.php interface configuration
 $title = "Generate Tokens";
 $img = "https://clickhelp.co/images/feeds/blog/2016.05/keys.jpg";
@@ -22,4 +23,4 @@ $access_token_note = "NOTE: New access tokens expire in 1 hour.";
 $manage_token_note = "You can manage your refresh tokens in the following link: ";
 $manageTokens = $issuer . "manage/user/services";
 $sessionName = "oidc-client";
-$sessionLifetime = 60*60;   // must be equal to access token validation time in seconds
+$sessionLifetime = 60 * 60;  // must be equal to access token validation time in seconds
