@@ -1,6 +1,7 @@
 # simple-oidc-client-php
 
-A simple OpenID Connect (OIDC) client in PHP that uses authorization code flow and/or [PKCE](https://tools.ietf.org/html/rfc7636)
+A simple OpenID Connect (OIDC) client in PHP that uses authorization code flow
+and/or [PKCE](https://tools.ietf.org/html/rfc7636)
 
 ## Simple OIDC Client - setup
 
@@ -54,10 +55,12 @@ tar -zxvf simple-oidc-client-php-X.Y.Z.tar.gz
 
 ## Simple OIDC Client - authentication
 
-Now that we have everything we need, we can configure our login settings in `config.php`.
+Now that we have everything we need, we can configure our login settings in
+`config.php`.
 
 ```php
 <?php
+
 // index.php interface configuration
 $title = "Generate Tokens";
 $img = "https://clickhelp.co/images/feeds/blog/2016.05/keys.jpg";
@@ -80,25 +83,41 @@ $access_token_note = "NOTE: New access tokens expire in 1 hour.";
 $manage_token_note = "You can manage your refresh tokens in the following link: ";
 $manageTokens = $issuer . "manage/user/services";
 $sessionName = "oidc-client";
-$sessionLifetime = 60*60;   // must be equal to access token validation time in seconds
+$sessionLifetime = 60 * 60;  // must be equal to access token validation time in seconds
+$allow_introspection = false;
+$enable_active_tokens_table = false;
 ```
 
 Let’s go quickly through the settings:
 
 * `title` required, is the title on the navigation bar
 * `img` required, is the source of the logo
-* `scope_info` optional, is a message that informs the user for the aplication requirements
-* `issuer` required, is the base URL of our IdentityServer instance. This will allow oidc-client to query the metadata endpoint so it can validate the tokens
-* `client_id` required, is the id of the client we want to use when hitting the authorization endpoint
-* `client_secret` optional, a value the offers better security to the message flow
-* `pkceCodeChallengeMethod` optional, a string that defines the code challenge methond for PKCE. Choose between `plain` or `S256`.
-* `redirect_url` required, is the redirect URL where the client and the browser agree to send and receive correspondingly the code. Currently, there are available 2 pages for that purpose:
-  * `refreshtoken.php`: The users can request Refresh Tokens. Also, they can see all the issued active Refresh Tokens for this client.
-  * `auth.php`: The users can obtain their user information from the obtained Access (and Refresh) Token.
+* `scope_info` optional, is a message that informs the user for the application
+  requirements
+* `issuer` required, is the base URL of our IdentityServer instance. This will
+  allow oidc-client to query the metadata endpoint so it can validate the tokens
+* `client_id` required, is the id of the client we want to use when hitting the
+  authorization endpoint
+* `client_secret` optional, a value the offers better security to the message
+  flow
+* `pkceCodeChallengeMethod` optional, a string that defines the code challenge
+  method for PKCE. Choose between `plain` or `S256`.
+* `redirect_url` required, is the redirect URL where the client and the browser
+  agree to send and receive correspondingly the code. Currently, there are
+  available 2 pages for that purpose:
+  * `refreshtoken.php`: The users can request Refresh Tokens. Also, they can
+    see all the issued active Refresh Tokens for this client.
+  * `auth.php`: The users can obtain their user information from the obtained
+    Access (and Refresh) Token.
 * `scopesDefine` required, defines the scopes the client supports
 * `refresh_token_note` optional, info for the refresh token
 * `access_token_note` optional, info for the access token
-* `manage_token_note` optional, message the informs the user where can manage his tokens
+* `manage_token_note` optional, message the informs the user where can manage
+  his tokens
 * `manageTokens` optional, URL of the manage tokens service
 * `sessionName` required, define the name of the cookie session
-* `sessionLifetime` required, define the duration of the session. This must be equal to the validity time of the access token.
+* `sessionLifetime` required, define the duration of the session. This must be
+  equal to the validity time of the access token.
+* `allow_introspection` required, define to show/hide the introspection command
+* `enable_active_tokens_table` required, define to show/hide the Active Refresh
+  Token table in `refreshtoken.php`
