@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <?php
@@ -16,18 +16,18 @@
         @session_start();
     }
 
-    if (empty($client_secret)) {
-        $client_secret = null;
+    if (empty($clientSecret)) {
+        $clientSecret = null;
     }
 
     $oidc = new OpenIDConnectClient(
         $issuer,
-        $client_id,
-        $client_secret
+        $clientId,
+        $clientSecret
     );
     $scopes = array_keys($scopesDefine);
     $oidc->addScope($scopes);
-    $oidc->setRedirectURL($redirect_url);
+    $oidc->setRedirectURL($redirectUrl);
     $oidc->setResponseTypes(['code']);
     if (!empty($pkceCodeChallengeMethod)) {
         $oidc->setCodeChallengeMethod($pkceCodeChallengeMethod);
@@ -44,7 +44,7 @@
                     $oidc->authenticate();
                     break;
                 case 'revoke':
-                    $oidc->revokeToken($_POST['token'], '', $client_id, $client_secret);
+                    $oidc->revokeToken($_POST['token'], '', $clientId, $clientSecret);
                     $_SESSION['action'] = 'revoke';
                     if ($_POST['token'] == $_SESSION['refresh_token']) {
                         $_SESSION['refresh_token'] = null;
@@ -88,7 +88,7 @@
 
     ?>
     <title><?php echo $title; ?></title>
-    <meta charset="utf-8" />
+    <meta content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css" />
 </head>
 
@@ -106,48 +106,52 @@
         <div class="jumbotron">
             <img class="sticky" src="<?php echo $img; ?>" alt="Logo" style="height: 60px; width: 60px; margin-bottom: 20px;">
             <h1 style="display: inline;"><?php echo $title; ?></h1>
-            <p style="margin-bottom: 0px;"><b>Client ID: </b> <?php echo $client_id; ?></p>
-            <?php if (!empty($client_secret)) {
-                echo "<p><b>Client Secret: </b> $client_secret</p>";
+            <p style="margin-bottom: 0px;"><strong>Client ID: </strong> <?php echo $clientId; ?></p>
+            <?php if (!empty($clientSecret)) {
+                echo "<p><b>Client Secret: </b> $clientSecret</p>";
             }
             ?>
             <br>
 
+            <?php if ($enableActiveTokensTable) : ?>
             <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#accessTokenMenu">My Access Token</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#refreshTokenMenu">My Refresh Tokens</a></li>
             </ul>
+            <?php endif; ?>
 
             <div class="tab-content">
                 <div id="accessTokenMenu" class="tab-pane active">
                     <div>
                         <p class="lead" style="margin-bottom: 0px;">Access Token: </p>
                         <input id="accessToken" size=70 type="text" readonly style="cursor: text;" value="<?php echo $accessToken; ?>" />
-                        <button id="copy-mAccessT" style="cursor: pointer" class="btn btn-copy btn-primary"><i class="icon-file"></i> Copy</button>
+                        <button id="copy-mAccessT" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
                     </div>
                     <div>
                         <p style="margin-bottom: 0px;">To get the user info use the following curl command: </p>
                         <input id="curlUserInfo" size=70 type="text" readonly style="cursor: text;" value="<?php echo getCurlUserInfo($accessToken, $userInfoEndpoint); ?>" />
-                        <button id="copyCurlUserInfo" style="cursor: pointer" class="btn btn-copy btn-primary"><i class="icon-file"></i> Copy</button>
+                        <button id="copyCurlUserInfo" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
                     </div>
+                    <?php if ($allowIntrospection) : ?>
                     <div>
                         <p style="margin-bottom: 0px;">To introspect the token use the following curl command: </p>
-                        <input id="curlIntrospection" size=70 type="text" readonly style="cursor: text;" value="<?php echo getCurlIntrospect($client_id, $client_secret, $accessToken, $introspectionEndpoint); ?>" />
-                        <button id="copyCurlIntrospection" style="cursor: pointer" class="btn btn-copy btn-primary"><i class="icon-file"></i> Copy</button>
+                        <input id="curlIntrospection" size=70 type="text" readonly style="cursor: text;" value="<?php echo getCurlIntrospect($accessToken, $introspectionEndpoint, $clientId, $clientSecret); ?>" />
+                        <button id="copyCurlIntrospection" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
                     </div>
-                    <p><?php echo $access_token_note; ?></p>
+                    <?php endif; ?>
+                    <p><?php echo $accessTokenNote; ?></p>
                     <?php if (!empty($refreshToken)) { ?>
                         <div id="refreshTokenBlock">
                             <p class="lead" style="margin-bottom: 0px;">Refresh Token: </p>
                             <input id="refreshToken" size=70 type="text" readonly style="cursor: text;" value="<?php echo $refreshToken; ?>" />
-                            <button id="copyRefreshToken" style="cursor: pointer" class="btn btn-copy btn-primary"><i class="icon-file"></i> Copy</button>
-                            <p><?php echo $refresh_token_note; ?></p>
+                            <button id="copyRefreshToken" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
+                            <p><?php echo $refreshTokenNote; ?></p>
                         </div>
                         <div>
                             <p style="margin-bottom: 0px;">To generate access tokens from this refresh token use the following curl command: </p>
-                            <input id="curlRefresh" size=70 type="text" readonly style="cursor: text;" value="<?php echo getCurlRefresh($client_id, $client_secret, $scopes, $refreshToken, $tokenEndpoint); ?>" />
-                            <button id="copyCurlRefresh" style="cursor: pointer" class="btn btn-copy btn-primary"><i class="icon-file"></i> Copy</button>
-                            <p><?php echo $access_token_note; ?></p>
+                            <input id="curlRefresh" size=70 type="text" readonly style="cursor: text;" value="<?php echo getCurlRefresh($refreshToken, $tokenEndpoint, $clientId, $clientSecret, $scopes); ?>" />
+                            <button id="copyCurlRefresh" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
+                            <p><?php echo $accessTokenNote; ?></p>
                         </div>
                         <br>
                     <?php } else { ?>
@@ -156,8 +160,9 @@
                             <input class="btn btn-primary" type="submit" value="Create Refresh Token" />
                         </form>
                     <?php } ?>
-                    <p><?php echo $manage_token_note; ?><a target="_blank" class="navbar-brand" href="<?php echo $manageTokens; ?>"><?php echo $manageTokens; ?></a></p>
+                    <p><?php echo $manageTokenNote; ?><a target="_blank" class="navbar-brand" href="<?php echo $manageTokens; ?>"><?php echo $manageTokens; ?></a></p>
                 </div>
+                <?php if ($enableActiveTokensTable) : ?>
                 <div id="refreshTokenMenu" class="tab-pane fade">
                     <table class="table table-striped">
                         <thead>
@@ -168,10 +173,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php echo getRefreshTokenTable($client_id, $accessToken, $issuer); ?>
+                            <?php echo getRefreshTokenTable($clientId, $accessToken, $issuer); ?>
                         </tbody>
                     </table>
                 </div>
+                <?php endif; ?>
             </div>
 
         </div>
