@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Move session controller to separate file
 - Move header to separate file
+- Move footer to separate file
 
 ### Fixed
 

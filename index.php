@@ -16,7 +16,4 @@
             <a class="btn btn-lg btn-primary" href="<?php echo $redirectPage; ?>" role="button">Authorise</a>
         </div>
     </main>
-    <script src="vendor/components/jquery/jquery.js"></script>
-    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
-</body>
-</html>
+    <?php include(__DIR__ . '/resources/templates/footer.php'); ?>
