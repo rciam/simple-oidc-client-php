@@ -29,7 +29,7 @@
                 ?>
             </ul>
             <br>
-            <a class="btn btn-lg btn-primary" href="refreshtoken.php" role="button">Authorise</a>
+            <a class="btn btn-lg btn-primary" href="<?php echo $redirectPage; ?>" role="button">Authorise</a>
         </div>
     </main>
     <script src="vendor/components/jquery/jquery.js"></script>
