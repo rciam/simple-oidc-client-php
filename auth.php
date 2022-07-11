@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title><?= $title; ?></title>
-    <meta content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css" />
-</head>
-
-<body>
-    <nav class="navbar sticky-top navbar-expand-xl bg-primary">
-        <div class="container d-flex justify-content-between">
-            <a class="navbar-brand" style="color: white" href="index.php"><?= $title; ?></a>
-            <button
-                class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav>
+    <?php include(__DIR__ . '/resources/templates/header.php'); ?>
     <?php include(__DIR__ . '/resources/controllers/session.php'); ?>
     <br>
     <main role="main" class="container">
