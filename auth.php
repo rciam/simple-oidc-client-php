@@ -2,44 +2,6 @@
 <html lang="en">
 
 <head>
-    <?php
-    require __DIR__ . '/vendor/autoload.php';
-
-    use Jumbojett\OpenIDConnectClient;
-
-    require 'config.php';
-
-    if (!isset($_SESSION)) {
-        session_set_cookie_params(0, '/' . $sessionName);
-        session_name($sessionName);
-        @session_start();
-    }
-
-    if (empty($clientSecret)) {
-        $clientSecret = null;
-    }
-
-    $oidc = new OpenIDConnectClient(
-        $issuer,
-        $clientId,
-        $clientSecret
-    );
-    $scopes = array_keys($scopesDefine);
-    $oidc->addScope($scopes);
-    $oidc->setRedirectURL($redirectUrl);
-    $oidc->setResponseTypes(['code']);
-    if (!empty($pkceCodeChallengeMethod)) {
-        $oidc->setCodeChallengeMethod($pkceCodeChallengeMethod);
-    }
-    $oidc->authenticate();
-    $accessToken = $oidc->getAccessToken();
-    $refreshToken = null;
-    if (in_array('offline_access', $scopes)) {
-        $refreshToken = $oidc->getRefreshToken();
-    }
-
-    $userInfo = $oidc->requestUserInfo();
-    ?>
     <title><?= $title; ?></title>
     <meta content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css" />
@@ -57,6 +19,7 @@
             </button>
         </div>
     </nav>
+    <?php include(__DIR__ . '/resources/controllers/session.php'); ?>
     <br>
     <main role="main" class="container">
           <div class="jumbotron">

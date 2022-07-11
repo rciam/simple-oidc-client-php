@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Move session controller to separate file
+
 ### Fixed
 
 - Fix redirection in `index.php` form
