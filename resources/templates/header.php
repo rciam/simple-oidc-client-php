@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php require 'config.php'; ?>
     <title><?php echo $title; ?></title>
     <meta content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="public/css/banner.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
 </head>
+
 <body>
+    <?php if (!empty($bannerText)) : ?>
+        <div id="banner-info-bar" class="banner-top-<?= $bannerType ?> banner-top-global">
+            <div>
+                <?= $bannerText ?>
+            </div>
+            <a class="banner-top-close" href="#" onclick="closeBanner(this)">
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+    <?php endif; ?>
     <nav class="navbar sticky-top navbar-expand-xl bg-primary">
         <div class="container d-flex justify-content-between">
             <a class="navbar-brand" style="color: white" href="#"><?php echo $title; ?></a>

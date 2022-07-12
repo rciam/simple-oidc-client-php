@@ -10,5 +10,6 @@
             document.execCommand('copy');
         });
     </script>
+    <script src="public/js/banner.js"></script>
 </body>
 </html>

@@ -25,5 +25,7 @@ $manageTokenNote = "You can manage your refresh tokens in the following link: ";
 $manageTokens = $issuer . "manage/user/services";
 $sessionName = "oidc-client";
 $sessionLifetime = 60 * 60;  // must be equal to access token validation time in seconds
+$bannerText = "";
+$bannerType = "info";  // Select one of "info", "warning", "error" or "success"
 $allowIntrospection = false;
 $enableActiveTokensTable = false;
