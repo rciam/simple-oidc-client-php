@@ -102,13 +102,14 @@ Let’s go quickly through the settings:
   flow
 * `pkceCodeChallengeMethod` optional, a string that defines the code challenge
   method for PKCE. Choose between `plain` or `S256`.
-* `redirectUrl` required, is the redirect URL where the client and the browser
-  agree to send and receive correspondingly the code. Currently, there are
+* `redirectPage` required, the page to redirect the user. Currently, there are
   available 2 pages for that purpose:
   * `refreshtoken.php`: The users can request Refresh Tokens. Also, they can
     see all the issued active Refresh Tokens for this client.
   * `auth.php`: The users can obtain their user information from the obtained
     Access (and Refresh) Token.
+* `redirectUrl` required, is the redirect URL where the client and the browser
+  agree to send and receive correspondingly the code.
 * `scopesDefine` required, defines the scopes the client supports
 * `refreshTokenNote` optional, info for the refresh token
 * `accessTokenNote` optional, info for the access token
@@ -118,6 +119,13 @@ Let’s go quickly through the settings:
 * `sessionName` required, define the name of the cookie session
 * `sessionLifetime` required, define the duration of the session. This must be
   equal to the validity time of the access token.
+* `bannerText` optional, the text that the banner will contain.
+* `bannerType` required if `bannerText` is omitted, otherwise is optional,
+  define the type (color) of the banner. Options:
+  * `info`
+  * `error`
+  * `success`
+  * `warn`
 * `allowIntrospection` required, define to show/hide the introspection command
 * `enableActiveTokensTable` required, define to show/hide the Active Refresh
   Token table in `refreshtoken.php`
