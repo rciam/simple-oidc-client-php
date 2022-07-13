@@ -1,7 +1,7 @@
     <?php include(__DIR__ . '/resources/templates/header.php'); ?>
     <br>
     <main role="main" class="container">
-          <div class="jumbotron">
+        <div class="jumbotron">
             <img class="sticky" src="<?php echo $img; ?>" alt="Logo" style="height: 60px; width: 60px;margin-bottom: 20px;">
             <h1 style="display: inline;"><?php echo $title; ?></h1>
             <p class="lead"><?php echo $scopeInfo; ?></p>
