@@ -10,7 +10,8 @@ $issuer = "https://example.com/oidc/";
 $clientId = "some-client-id";
 $clientSecret = "some-client-secret";  // comment if you are using PKCE
 // $pkceCodeChallengeMethod = "S256";   // uncomment to use PKCE
-$redirectUrl = "http://localhost/simple-oidc-client-php/refreshtoken.php";
+$redirectPage = "refreshtoken.php";  // select between "refreshtoken.php" and "auth.php"
+$redirectUrl = "http://localhost/simple-oidc-client-php/" . $redirectPage;
 // add scopes as keys and a friendly message of the scope as value
 $scopesDefine = array(
     'openid' => 'log in using your identity',
@@ -24,5 +25,7 @@ $manageTokenNote = "You can manage your refresh tokens in the following link: ";
 $manageTokens = $issuer . "manage/user/services";
 $sessionName = "oidc-client";
 $sessionLifetime = 60 * 60;  // must be equal to access token validation time in seconds
+$bannerText = "";
+$bannerType = "info";  // Select one of "info", "warning", "error" or "success"
 $allowIntrospection = false;
 $enableActiveTokensTable = false;

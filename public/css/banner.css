@@ -1,0 +1,35 @@
+.banner-top-info,
+.banner-top-success,
+.banner-top-warning,
+.banner-top-error {
+  border-bottom: 1px solid;
+}
+.banner-top-info {
+  color: #00529b;
+  background-color: #bde5f8;
+}
+.banner-top-success {
+  color: #4f8a10;
+  background-color: #dff2bf;
+}
+.banner-top-warning {
+  color: #9f6000;
+  background-color: #feefb3;
+}
+.banner-top-error {
+  color: #d8000c;
+  background-color: #ffbaba;
+}
+.banner-top-global {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  z-index: 2000;
+  padding: 0.5em;
+}
+.banner-top-close {
+  text-decoration: none;
+  color: unset;
+}
