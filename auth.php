@@ -6,7 +6,7 @@
             <img class="sticky" src="<?= $img; ?>" alt="Logo" style="height: 60px; width: 60px; margin-bottom: 20px;">
             <h1 style="display: inline;"><?= $title; ?></h1>
             <p style="margin-bottom: 0px;"><strong>Client ID: </strong> <?= $clientId; ?></p>
-            <p><strong>User Info: </strong> <?= var_export($userInfo, true); ?></p>
+            <p><strong>User Info: </strong> <?= var_export($oidc->requestUserInfo(), true); ?></p>
             <p class="lead" style="margin-bottom: 0px;">Access Token: </p>
             <input id="access_token" size=70 type="text" readonly style="cursor: text;" value="<?= $accessToken; ?>" />
             <?php if (!empty($refreshToken)) : ?>
