@@ -5,9 +5,9 @@
     <?php require 'config.php'; ?>
     <title><?php echo $title; ?></title>
     <meta content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="public/css/banner.css" />
-    <link rel="stylesheet" href="vendor/components/font-awesome/css/all.css" />
+    <link rel="stylesheet" href="vendor/components/font-awesome/css/all.min.css" />
 </head>
 
 <body>
