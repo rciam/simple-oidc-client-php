@@ -126,7 +126,7 @@ Let’s go quickly through the settings:
   - `info`
   - `error`
   - `success`
-  - `warn`
+  - `warning`
 - `allowIntrospection` required, define to show/hide the introspection command
 - `enableActiveTokensTable` required, define to show/hide the Active Refresh
   Token table in `refreshtoken.php`
