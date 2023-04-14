@@ -2,7 +2,7 @@
 
 function getMetadata($issuer)
 {
-    $url = $issuer . "/.well-known/openid-configuration/";
+    $url = rtrim($issuer, "/") . "/.well-known/openid-configuration/";
     return json_decode(http($url));
 }
 
