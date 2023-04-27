@@ -14,7 +14,7 @@ First you need to install apache and composer
 
 ```shell
 sudo apt-get update
-sudo apt-get install apache2 curl php-cli git
+sudo apt-get install apache2 curl php-cli php-json php-xml git
 php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');"
 sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 ```
