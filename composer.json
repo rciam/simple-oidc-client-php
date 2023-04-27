@@ -8,7 +8,8 @@
         "ext-curl": "*",
         "twbs/bootstrap": "^4.0",
         "paragonie/random_compat":"2.0.19",
-        "components/jquery": "^3.3"
+        "components/jquery": "^3.3",
+        "components/font-awesome": "^5.15"
     },
     "archive" : {
         "exclude" : [

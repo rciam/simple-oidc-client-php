@@ -70,7 +70,8 @@ $issuer = "https://example.com/oidc/";
 $clientId = "some-client-id";
 $clientSecret = "some-client-secret";  // comment if you are using PKCE
 // $pkceCodeChallengeMethod = "S256";   // uncomment to use PKCE
-$redirectUrl = "http://localhost/simple-oidc-client-php/refreshtoken.php";
+$redirectPage = "refreshtoken.php";  // select between "refreshtoken.php" and "auth.php"
+$redirectUrl = "http://localhost/simple-oidc-client-php/" . $redirectPage;
 // add scopes as keys and a friendly message of the scope as value
 $scopesDefine = array(
     'openid' => 'log in using your identity',
@@ -125,7 +126,7 @@ Let’s go quickly through the settings:
   - `info`
   - `error`
   - `success`
-  - `warn`
+  - `warning`
 - `allowIntrospection` required, define to show/hide the introspection command
 - `enableActiveTokensTable` required, define to show/hide the Active Refresh
   Token table in `refreshtoken.php`

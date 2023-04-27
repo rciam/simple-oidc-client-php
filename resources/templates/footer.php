@@ -1,5 +1,5 @@
-    <script src="vendor/components/jquery/jquery.js"></script>
-    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="vendor/components/jquery/jquery.min.js"></script>
+    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>
         $("#accessTokenMenu").find('.btn-copy').click(function() {
             $(this).closest('div').find('input').select();
