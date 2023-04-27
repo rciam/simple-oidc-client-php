@@ -3,12 +3,10 @@
     "description": "A simple OpenID Connect (OIDC) client for browser-based applications in PHP",
     "require": {
         "php": ">=7.0",
-        "phpseclib/phpseclib" : "~2.0 || ^3.0",
-        "ext-json": "*",
-        "ext-curl": "*",
         "twbs/bootstrap": "^4.0",
         "components/jquery": "^3.3",
-        "components/font-awesome": "^5.15"
+        "components/font-awesome": "^5.15",
+        "jumbojett/openid-connect-php": "^0.9"
     },
     "archive" : {
         "exclude" : [
