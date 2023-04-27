@@ -29,3 +29,4 @@ $bannerText = "";
 $bannerType = "info";  // Select one of "info", "warning", "error" or "success"
 $allowIntrospection = false;
 $enableActiveTokensTable = false;
+$showIdToken = false;

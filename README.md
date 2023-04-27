@@ -87,6 +87,7 @@ $sessionName = "oidc-client";
 $sessionLifetime = 60 * 60;  // must be equal to access token validation time in seconds
 $allowIntrospection = false;
 $enableActiveTokensTable = false;
+$showIdToken = false;
 ```
 
 Let’s go quickly through the settings:
@@ -130,3 +131,4 @@ Let’s go quickly through the settings:
 - `allowIntrospection` required, define to show/hide the introspection command
 - `enableActiveTokensTable` required, define to show/hide the Active Refresh
   Token table in `refreshtoken.php`
+- `showIdToken` required, define to show/hide the ID Token from the dashboard
