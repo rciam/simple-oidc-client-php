@@ -21,6 +21,13 @@
 
             <div class="tab-content">
                 <div id="accessTokenMenu" class="tab-pane active">
+                    <?php if ($showIdToken) : ?>
+                    <div>
+                        <p class="lead" style="margin-bottom: 0px;">ID Token: </p>
+                        <input id="idToken" size=70 type="text" readonly style="cursor: text;" value="<?php echo $idToken; ?>" />
+                        <button id="copy-mAccessT" style="cursor: pointer" class="btn btn-copy btn-primary"><em class="icon-file"></em> Copy</button>
+                    </div>
+                    <?php endif; ?>
                     <div>
                         <p class="lead" style="margin-bottom: 0px;">Access Token: </p>
                         <input id="accessToken" size=70 type="text" readonly style="cursor: text;" value="<?php echo $accessToken; ?>" />

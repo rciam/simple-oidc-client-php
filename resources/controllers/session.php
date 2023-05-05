@@ -58,22 +58,26 @@ if (isset($_SESSION['sub']) && time() - $_SESSION['CREATED'] < $sessionLifetime)
         $sub = $oidc->requestUserInfo('sub');
         if ($sub) {
             $accessToken = $_SESSION['access_token'];
+            $idToken = $_SESSION['id_token'];
             $_SESSION['refresh_token'] = $refreshToken;
         }
         unset($_SESSION['action']);
     } else {
         $accessToken = $_SESSION['access_token'];
+        $idToken = $oidc->getIdToken();
         $refreshToken = $_SESSION['refresh_token'];
         unset($_SESSION['action']);
     }
 } else {
     $oidc->authenticate();
     $accessToken = $oidc->getAccessToken();
+    $idToken = $oidc->getIdToken();
     $refreshToken = $oidc->getRefreshToken();
     $sub = $oidc->requestUserInfo('sub');
     if ($sub) {
         $_SESSION['sub'] = $sub;
         $_SESSION['access_token'] = $accessToken;
+        $_SESSION['id_token'] = $idToken;
         $_SESSION['refresh_token'] = $refreshToken;
         $_SESSION['CREATED'] = time();
     }
