@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Add option for showing/hiding ID Token from dashboard
+
+### Changed
+
+- Update composer dependencies
+- Use `jumbojett/openid-connect-php` from composer
+
+### Fixed
+
+- Use font awesome from composer
+- Use minified CSS and JS
+- Handle issuer with trailing slash correctly
+
+### Removed
+
+- Remove support for PHP 5
+
 ## [v2.3.1] - 2022-09-07
 
 ### Fixed

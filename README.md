@@ -14,7 +14,7 @@ First you need to install apache and composer
 
 ```shell
 sudo apt-get update
-sudo apt-get install apache2 curl php-cli git
+sudo apt-get install apache2 curl php-cli php-json php-xml git
 php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');"
 sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 ```
@@ -55,18 +55,26 @@ tar -zxvf simple-oidc-client-php-X.Y.Z.tar.gz
 
 ## Simple OIDC Client - authentication
 
-Now that we have everything we need, we can configure our login settings in
+Now that you have everything you need, you can configure your login settings in
 `config.php`.
+First, copy the configuration file, using the command:
+
+```shell
+cp example-config.php config.php
+```
+
+Then open the file and configure the portal.
 
 ```php
 <?php
 
 // index.php interface configuration
 $title = "Generate Tokens";
-$img = "https://clickhelp.co/images/feeds/blog/2016.05/keys.jpg";
+$img = "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png";
 $scopeInfo = "This service requires the following permissions for your account:";
+
 // Client configuration
-$issuer = "https://example.com/oidc/";
+$issuer = "https://example.com/auth/realms/rciam";
 $clientId = "some-client-id";
 $clientSecret = "some-client-secret";  // comment if you are using PKCE
 // $pkceCodeChallengeMethod = "S256";   // uncomment to use PKCE
@@ -82,11 +90,15 @@ $scopesDefine = array(
 $refreshTokenNote = "NOTE: New refresh tokens expire in 12 months.";
 $accessTokenNote = "NOTE: New access tokens expire in 1 hour.";
 $manageTokenNote = "You can manage your refresh tokens in the following link: ";
-$manageTokens = $issuer . "manage/user/services";
-$sessionName = "oidc-client";
+$manageTokens = $issuer . "/account/#/applications";
+$sessionName = "simple-oidc-client-php";  // This value must be the same with the name of the parent directory
 $sessionLifetime = 60 * 60;  // must be equal to access token validation time in seconds
+$bannerText = "";
+$bannerType = "info";  // Select one of "info", "warning", "error" or "success"
 $allowIntrospection = false;
-$enableActiveTokensTable = false;
+$enableActiveTokensTable = false;  // This option works only for MITREid Connect based OPs
+$showIdToken = false;
+
 ```
 
 Let’s go quickly through the settings:
@@ -95,9 +107,10 @@ Let’s go quickly through the settings:
 - `img` required, is the source of the logo
 - `scopeInfo` optional, is a message that informs the user for the application
   requirements
-- `issuer` required, is the base URL of our IdentityServer instance. This will
-  allow oidc-client to query the metadata endpoint so it can validate the tokens
-- `clientId` required, is the id of the client we want to use when hitting the
+- `issuer` required, is the base URL of your OpenID Provider instance. This
+  will allow oidc-client to query the metadata endpoint so it can validate the
+  tokens
+- `clientId` required, is the id of the client you want to use when hitting the
   authorization endpoint
 - `clientSecret` optional, a value the offers better security to the message
   flow
@@ -117,7 +130,8 @@ Let’s go quickly through the settings:
 - `manageTokenNote` optional, message the informs the user where can manage
   his tokens
 - `manageTokens` optional, URL of the manage tokens service
-- `sessionName` required, define the name of the cookie session
+- `sessionName` required, define the name of the cookie session. The value must
+  be the same with the name of the parent directory
 - `sessionLifetime` required, define the duration of the session. This must be
   equal to the validity time of the access token.
 - `bannerText` optional, the text that the banner will contain.
@@ -129,4 +143,7 @@ Let’s go quickly through the settings:
   - `warning`
 - `allowIntrospection` required, define to show/hide the introspection command
 - `enableActiveTokensTable` required, define to show/hide the Active Refresh
-  Token table in `refreshtoken.php`
+  Token table in `refreshtoken.php`. Important note: This option works only for
+  [MITREid Connect](https://github.com/mitreid-connect/OpenID-Connect-Java-Spring-Server)
+  based OPs!
+- `showIdToken` required, define to show/hide the ID Token from the dashboard
