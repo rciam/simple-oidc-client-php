@@ -1,6 +1,8 @@
 
 <?php
 
+namespace SimpleOIDCClientPHP;
+
 include __DIR__ . '/../../vendor/autoload.php';
 
 use Jumbojett\OpenIDConnectClient;
