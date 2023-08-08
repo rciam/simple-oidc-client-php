@@ -24,7 +24,21 @@ $oidc = new OpenIDConnectClient(
     $clientSecret
 );
 $scopes = array_keys($scopesDefine);
-$oidc->addScope($scopes);
+
+// Required scope for every request
+$scopesCore = array('openid');
+
+// Getting form from index.php and filtering unwanted scopes
+if(isset($_POST['authorise'])){
+    if(!empty($_POST['scopesToggle'])){
+        $scopesWanted = array_unique(array_merge($scopesCore,array_values($_POST['scopesToggle'])));
+    }
+    else{
+        $scopesWanted = $scopesCore;
+    }
+}
+
+$oidc->addScope($scopesWanted);
 $oidc->setRedirectURL($redirectUrl);
 $oidc->setResponseTypes(['code']);
 if (!empty($pkceCodeChallengeMethod)) {
