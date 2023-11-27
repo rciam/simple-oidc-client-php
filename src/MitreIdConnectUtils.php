@@ -17,9 +17,9 @@ function getCurlRefresh($refreshToken, $tokenEndpoint, $clientId, $clientSecret 
         . "| python -m json.tool;";
 }
 
-function getCurlUserInfo($accessToken, $userInfoEndpoint)
+function getCurlForEndpoint($accessToken, $endpoint)
 {
-    return "curl ${userInfoEndpoint} "
+    return "curl ${endpoint} "
         . "-H 'Authorization: Bearer ${accessToken}' "
         . "-H 'Content-type: application/json' "
         . "| python -m json.tool;";
