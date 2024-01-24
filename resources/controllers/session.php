@@ -1,4 +1,3 @@
-
 <?php
 
 namespace SimpleOIDCClientPHP;
@@ -31,17 +30,17 @@ $scopesKeys = array_keys($scopesDefine);
 $scopesCore = array('openid');
 
 // Getting form from index.php and filtering unwanted scopes
-if(isset($_POST['authorise'])){
-    if(!empty($_POST['scopesToggle'])){
+if (isset($_POST['authorise'])) {
+    if (!empty($_POST['scopesToggle'])) {
         $scopes = array_unique(array_merge($scopesCore,array_values($_POST['scopesToggle'])));
-    }
-    else{
+    } else {
         $scopes = $scopesCore;
     }
+    // Checking if only supported scopes are requested - "config.php/scopesDefine"
+    $scopes = array_intersect($scopes, $scopesKeys);
+} else {
+    $scopes = $scopesKeys;
 }
-
-// Checking if only supported scopes are requested - "config.php/scopesDifine"
-$scopes = array_intersect($scopes, $scopesKeys);
 
 $oidc->addScope($scopes);
 $oidc->setRedirectURL($redirectUrl);
